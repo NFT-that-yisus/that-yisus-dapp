@@ -1,6 +1,8 @@
 {
   "name": "that-yisus-dapp",
   "version": "0.0.0",
+  "author": "Black Jack",
+  "description": "Be aware of That Yisus Exclusive Limited Collection, mint your NFTs.",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -11,11 +13,15 @@
     "axios": "^0.21.4",
     "next": "^11.1.2",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "web3": "^1.6.1",
+    "web3-eth-contract": "^1.6.1"
   },
   "license": "MIT",
   "keywords": [],
-  "description": "",
   "devDependencies": {
     "@types/react": "^17.0.20",
     "autoprefixer": "^10.3.4",
