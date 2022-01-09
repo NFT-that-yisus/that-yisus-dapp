@@ -1,13 +1,12 @@
 import React, { PureComponent, Fragment } from "react";
 
-import { /*MintingSection*/ TestSection, RoadmapSection, TeamSection, Footer } from "../src/sections/indexPage";
+import { MintingSection, RoadmapSection, TeamSection, Footer } from "../src/sections/indexPage";
 
 class IndexPage extends PureComponent {
     render () {
         return (
             <Fragment>
-                {/*<MintingSection />*/}
-                <TestSection />
+                <MintingSection />
                 <RoadmapSection />
                 <TeamSection />
                 <Footer />

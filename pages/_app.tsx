@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 import App from "next/app";
 import type { AppProps } from "next/app";
@@ -6,7 +6,6 @@ import Head from "next/head";
 
 import { Provider } from "react-redux";
 import store from "../src/redux/store";
-//import store from "../src/redux/store";
 
 // Global styles
 import "../src/styles/index.css";

@@ -1,8 +1,10 @@
-import counterReducer from "./counterReducer";
+import blockchainReducer from "./blockchainReducer";
+import dataReducer from "./dataReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
-   counter: counterReducer 
+   blockchain: blockchainReducer,
+   data: dataReducer
 });
 
 export default rootReducer;
