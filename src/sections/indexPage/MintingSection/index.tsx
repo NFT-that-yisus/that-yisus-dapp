@@ -9,7 +9,16 @@ const data = {
 const isNotConnected = false;
 const isMinting = false;
 
-class MintingSection extends PureComponent {
+/*interface IMintingSectionProps {
+    counter: number,
+    incrementCount: () => {},
+    decrementCount: () => {} 
+}
+
+interface IMintingSectionState {
+}*/
+
+class MintingSection extends PureComponent/*<IMintingSectionProps, IMintingSectionState>*/ {
     state = {
         CONFIG: {
             CONTRACT_ADDRESS: "",
