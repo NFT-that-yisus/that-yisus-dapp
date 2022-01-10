@@ -11,20 +11,20 @@ import Web3 from "web3";
 // log
 import { fetchData } from "./dataActions";
 
-const connectRequest = () => {
+const connectionRequest = () => {
     return {
         type: CONNECTION_REQUEST
     };
 };
 
-const connectSuccess = payload => {
+const connectionSuccess = payload => {
     return {
         type: CONNECTION_SUCCESS,
         payload
     };
 };
 
-const connectFailed = payload => {
+const connectionFailed = payload => {
     return {
         type: CONNECTION_FAILED,
         payload
@@ -38,9 +38,9 @@ const updateAccountRequest = payload => {
     };
 };
 
-export const connect = () => {
+export const connection = () => {
     return async dispatch => {
-        dispatch(connectRequest());
+        dispatch(connectionRequest());
 
         const abiResponse = await fetch("/config/abi.json", {
             headers: {
@@ -81,7 +81,7 @@ export const connect = () => {
                     );
 
                     dispatch(
-                        connectSuccess({
+                        connectionSuccess({
                             account: accounts[0],
                             smartContract: SmartContractObj,
                             web3: web3
@@ -96,13 +96,13 @@ export const connect = () => {
                     });
                     // Add listeners end
                 } else {
-                    dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
+                    dispatch(connectionFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
                 }
             } catch (err) {
-                dispatch(connectFailed("Something went wrong."));
+                dispatch(connectionFailed("Something went wrong."));
             }
         } else {
-            dispatch(connectFailed("Install Metamask."));
+            dispatch(connectionFailed("Install Metamask."));
         }
     };
 };
