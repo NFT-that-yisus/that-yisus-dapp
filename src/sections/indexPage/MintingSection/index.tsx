@@ -54,7 +54,7 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
     }
 
     mintNFT = () => {
-        const { CONFIG, blockchain } = this.props;
+        /*const { CONFIG, blockchain } = this.props;
         const { mintAmount } = this.state;
 
         let cost = CONFIG.WEI_COST;
@@ -86,8 +86,8 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
             console.log(receipt);
             this.setFeedback(`WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`);
             this.setIsMinting(false);
-            fetchData(/*blockchain.account*/);
-        });
+            fetchData(/*blockchain.account--------------);
+        });*/
     };
 
     getData = () => {
