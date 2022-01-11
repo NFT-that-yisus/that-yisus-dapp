@@ -7,7 +7,23 @@ import { connection } from "../../../redux/actions/blockchainActions";
 import { fetchData } from "../../../redux/actions/dataActions";
 
 interface IMintingSectionProps {
-    CONFIG: {},
+    CONFIG: {
+        CONTRACT_ADDRESS: "",
+        SCAN_LINK: "",
+        NETWORK: {
+          NAME: "",
+          SYMBOL: "",
+          ID: 0
+        },
+        NFT_NAME: "",
+        SYMBOL: "",
+        MAX_SUPPLY: 33,
+        WEI_COST: 50000000000000000,
+        DISPLAY_COST: 3.3,
+        GAS_LIMIT: 285000,
+        MARKETPLACE: "",
+        MARKETPLACE_LINK: ""
+    },
     blockchain: {
         loading: false,
         account: null,
@@ -37,6 +53,43 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
         feedback: ""
     }
 
+    mintNFT = () => {
+        const { CONFIG, blockchain } = this.props;
+        const { mintAmount } = this.state;
+
+        let cost = CONFIG.WEI_COST;
+        let gasLimit = CONFIG.GAS_LIMIT;
+        let totalCostWei = String(cost * mintAmount);
+        let totalGasLimit = String(gasLimit * mintAmount);
+
+        console.log("Cost: ", totalCostWei);
+        console.log("Gas limit: ", totalGasLimit);
+
+        this.setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+        this.setIsMinting(true);
+
+        blockchain.smartContract.methods
+        //.mint(blockchain.account, mintAmount) This is for 2 arguments when minting
+        .mint(mintAmount)
+        .send({
+            gasLimit: String(totalGasLimit),
+            to: CONFIG.CONTRACT_ADDRESS,
+            from: blockchain.account,
+            value: totalCostWei,
+        })
+        .once("error", (err) => {
+            console.log(err);
+            this.setFeedback("Sorry, something went wrong please try again later.");
+            this.setIsMinting(false);
+        })
+        .then((receipt) => {
+            console.log(receipt);
+            this.setFeedback(`WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`);
+            this.setIsMinting(false);
+            fetchData(/*blockchain.account*/);
+        });
+    };
+
     getData = () => {
         const { blockchain, fetchData } = this.props;
 
@@ -47,6 +100,10 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
 
     setMintAmount = (mintAmount:number) => this.setState({ mintAmount });
 
+    setIsMinting = (value:boolean) => this.setState({ isMinting: value });
+
+    setFeedback = (feedback:string) => this.setState({ feedback });
+
     handleMintingButton = () => {
         const { blockchain, connection } = this.props;
         const isNotConnected = blockchain.account === "" || blockchain.smartContract === null;
@@ -55,8 +112,8 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
             connection(); 
             this.getData();
         } else {
-            /*claimNFTs();
-            getData();*/
+            this.mintNFT();
+            this.getData();
         }
     }
 
@@ -67,7 +124,7 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
         const isNotConnected = blockchain.account === "" || blockchain.smartContract === null;
 
         return (
-            <div className="bg-blue-300 py-16 px-4">
+            <div className="py-32 px-4">
                 {feedback && <p>{feedback}</p>}
 
                 {blockchain.errorMsg && <p>{blockchain.errorMsg}</p>}
@@ -127,7 +184,26 @@ export async function getStaticProps() {
 
 const mapStateToProps = state => ({
     blockchain: state.blockchain,
-    data: state.data
+    data: state.data,
+
+    // TESTING ONLY
+    CONFIG: {
+        "CONTRACT_ADDRESS": "0x38763358f01db1B064dB61C56c05b66047380d84",
+        "SCAN_LINK": "https://mumbai.polygonscan.com/address/0x38763358f01db1B064dB61C56c05b66047380d84",
+        "NETWORK": {
+          "NAME": "Mumbai Polygon Testnet",
+          "SYMBOL": "Matic",
+          "ID": 80001
+        },
+        "NFT_NAME": "That Yisus Exclusive Limited Collection",
+        "SYMBOL": "TYELC",
+        "MAX_SUPPLY": 33,
+        "WEI_COST": 50000000000000000,
+        "DISPLAY_COST": 3.3,
+        "GAS_LIMIT": 285000,
+        "MARKETPLACE": "Opeansea",
+        "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/that-yisus-exclusive-limited-collection"
+      }      
 });
 
 const mapDispatchToProps = {
@@ -138,71 +214,9 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(MintingSection);
 
 
-
-
-
-
-
-//import MintingButton from "./MintingButton";
-
-/*
-import { connect } from "../../../redux/blockchain/blockchainActions";
-import { fetchData } from "../../../redux/data/dataActions";
+/*;
 
 const App = () => {
-
-    const claimNFTs = () => {
-        let cost = CONFIG.WEI_COST;
-        let gasLimit = CONFIG.GAS_LIMIT;
-        let totalCostWei = String(cost * mintAmount);
-        let totalGasLimit = String(gasLimit * mintAmount);
-        console.log("Cost: ", totalCostWei);
-        console.log("Gas limit: ", totalGasLimit);
-        setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
-        setIsMinting(true);
-        console.log(blockchain)
-
-        blockchain.smartContract.methods
-        //.mint(blockchain.account, mintAmount) This is for 2 arguments when minting
-        .mint(mintAmount)
-        .send({
-            gasLimit: String(totalGasLimit),
-            to: CONFIG.CONTRACT_ADDRESS,
-            from: blockchain.account,
-            value: totalCostWei,
-        })
-        .once("error", (err) => {
-            console.log(err);
-            setFeedback("Sorry, something went wrong please try again later.");
-            setIsMinting(false);
-        })
-        .then((receipt) => {
-            console.log(receipt);
-            setFeedback(
-            `WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`
-            );
-            setIsMinting(false);
-            dispatch(fetchData(blockchain.account));
-        });
-    };
-
-
-    const getData = () => {
-        if (blockchain.account !== "" && blockchain.smartContract !== null) {
-        dispatch(fetchData(blockchain.account));
-        }
-    };
-
-    const getConfig = async () => {
-        const configResponse = await fetch("/config/config.json", {
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        },
-        });
-        const config = await configResponse.json();
-        SET_CONFIG(config);
-    };
 
     useEffect(() => {
         getConfig();
