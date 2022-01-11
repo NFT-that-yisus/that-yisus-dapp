@@ -28,8 +28,7 @@ const Footer = () => {
                     </svg>
                 </div>
 
-                <img className="place-self-center"
-                src="https://ik.imagekit.io/bayc/assets/bayc-footer.png" width="200px" />
+                <img className="place-self-center"src="/images/white-rounded-logo.png" width="200px" />
             </div>
         </footer>
     );
