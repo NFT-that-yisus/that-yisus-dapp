@@ -8,6 +8,7 @@ const RevelationEvent = () => {
             <button className="mt-8 py-4 px-8 border-2 border-yellow-500 bg-purple-900 text-xl text-yellow-400 hover:bg-yellow-500 hover:text-white">
                 Holy Yisus!
             </button>
+            <p className="bg-gradient-to-r from-black to-transparent text-white">Evento empieza en 00h 00min 00seg</p>
         </section>
     );
 }

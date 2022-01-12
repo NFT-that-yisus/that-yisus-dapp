@@ -129,14 +129,20 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
 
                 {blockchain.errorMsg && <p>{blockchain.errorMsg}</p>}
     
-                <div className="w-1/2 mx-auto p-8 bg-white text-center divide-y divide-gray-600">
-                    <h3 className="pb-8 text-4xl">{data.totalSupply} / {CONFIG.MAX_SUPPLY}</h3>
+                <div className="w-1/2 mx-auto p-8 text-center divide-y divide-gray-600">
+                    <h3 className="bg-black text-red-400 font-heading text-2xl">
+                        00h 00min 00seg restantes!.
+                    </h3>
+
+                    <h3 className="py-8 text-4xl">{data.totalSupply} / {CONFIG.MAX_SUPPLY}</h3>
     
                     <div className="py-8">
                         <h4 className="text-3xl text-left pb-4">Cantidad</h4>
                         <div className="grid grid-cols-2 gap-4">
-                            <button className="border-2 border-black" onClick={() => this.setMintAmount(1)}>1</button>
-                            <button className="border-2 border-black" onClick={() => this.setMintAmount(2)}>2</button>
+                            <button className="text-xl bg-purple-200 border-2 border-black hover:bg-purple-300" 
+                            onClick={() => this.setMintAmount(1)}>1</button>
+                            <button className="text-xl bg-purple-200 border-2 border-black hover:bg-purple-300" 
+                            onClick={() => this.setMintAmount(2)}>2</button>
                         </div>
     
                         <div className="pt-4">
@@ -151,7 +157,7 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
                     </div>
                 </div>
     
-                <div>
+                <div className="text-center">
                     <p>
                         Asegurate de estar conectado en la red índicada ({CONFIG.NETWORK.NAME}).
                         Una vez realizada la compra, no hay vuelta atrás.

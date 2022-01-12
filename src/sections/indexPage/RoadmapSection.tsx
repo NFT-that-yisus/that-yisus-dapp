@@ -2,8 +2,8 @@ import React from "react";
 
 const RoadmapSection = () => {
     return (
-        <div className="bg-blue-300 py-16 px-4">
-            <h1 className="text-6xl py-8">Roadmap</h1>
+        <div className="px-4">
+            <h1 className="font-heading text-6xl">Roadmap</h1>
         </div>
     );
 }

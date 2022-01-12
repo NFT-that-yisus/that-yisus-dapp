@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="p-8 text-center">
+        <footer className="bg-blue-200 p-8 text-center">
             <div className="p-4 mb-8 border-b border-black">
                 <p>DIRECCIÓN DEL SMART CONTRACT VERIFICADO: <a href="">____________</a></p>
             </div>

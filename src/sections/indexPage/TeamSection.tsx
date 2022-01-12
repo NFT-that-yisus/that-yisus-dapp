@@ -2,14 +2,14 @@ import React from "react";
 
 const TeamSection = () => {
     return (
-        <div className="bg-blue-300 py-16 px-4">
+        <div className="px-4">
             <div className="text-center">
-                <h1 className="text-6xl py-8">El Equipo</h1>
+                <h1 className="font-heading text-6xl py-8">El Equipo</h1>
                 <h2 className="text-2xl">That Yisus fue creado por 2 amigos... .... COMPLETAR</h2>
             </div>
 
             <div className="py-12 text-center">
-                <h2 className="text-4xl mb-8">Staff</h2>
+                <h2 className="font-heading text-4xl mb-8">Staff</h2>
 
                 <div className="flex gap-8 justify-center">
                     <div className="">
