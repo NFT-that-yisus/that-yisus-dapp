@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from "react";
 
 import { Hero, RevelationEvent, MintingSection, InOpensea, RoadmapSection, 
-    TeamSection, Footer } from "../src/sections/indexPage";
+    TeamSection, Outcome, Footer } from "../src/sections/indexPage";
 
 class IndexPage extends PureComponent {
     render () {
@@ -13,6 +13,7 @@ class IndexPage extends PureComponent {
                 <InOpensea />
                 <RoadmapSection />
                 <TeamSection />
+                <Outcome />
                 <Footer />
             </Fragment>
         )
