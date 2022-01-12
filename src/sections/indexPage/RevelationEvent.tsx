@@ -2,13 +2,10 @@ import React from "react";
 
 const RevelationEvent = () => {
     return (
-        <section className="m-8 py-32 bg-blue-500">
+        <section className="my-32 mx-8 py-32 rounded-lg" style={{ background: "url(/images/RevelationEvent-background.jpg)", backgroundPosition: "center" }}>
             <h1 className="font-heading text-9xl">La llegada del Salvador</h1>
             <h3 className="text-6xl">Revelación NFTs en metaverso Spatial.io (todos pueden entrar).</h3>
-            <button className="mt-8 py-4 px-8 border-2 border-yellow-500 bg-purple-900 text-xl text-yellow-400 hover:bg-yellow-500 hover:text-white">
-                Holy Yisus!
-            </button>
-            <p className="bg-gradient-to-r from-black to-transparent text-white">Evento empieza en 00h 00min 00seg</p>
+            <p className="pt-16 text-xl">Fecha y hora: Serán anunciados en Club Discord</p>
         </section>
     );
 }
