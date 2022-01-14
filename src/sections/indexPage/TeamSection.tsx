@@ -5,7 +5,10 @@ const TeamSection = () => {
         <div className="px-4">
             <div className="text-center">
                 <h1 className="font-heading text-6xl">El Equipo</h1>
-                <h3 className="text-2xl">Descripción aquí.</h3>
+                <h3 className="text-2xl">
+                    Detrás de todo gran proyecto hay un gran equipo. <br />
+                    Yo soy mente, Dios es mente.    
+                </h3>
             </div>
 
             <div className="py-12 text-center">
@@ -21,7 +24,7 @@ const TeamSection = () => {
                             <a href="https://tunel.app/u/literallynotblackjack" target="_blank">
                                 <img src="/social-icons/tunel.svg" className="w-6 h-6" />
                             </a>
-                            <a href="" target="_blank">
+                            <a href="https://www.instagram.com/literallynotblackjack" target="_blank">
                                 <img src="/social-icons/instagram.svg" className="w-6 h-6" />
                             </a>
                         </div>
