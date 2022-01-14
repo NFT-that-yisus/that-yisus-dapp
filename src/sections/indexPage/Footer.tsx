@@ -2,21 +2,21 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="bg-blue-200 p-8 text-center">
+        <footer className="bg-gradient-to-b from-blue-400 to-blue-200 p-8 text-center">
             <div className="p-4 mb-8 border-b border-black">
                 <p>DIRECCIÓN DEL SMART CONTRACT VERIFICADO: <a href="">____________</a></p>
             </div>
 
-            <div className="grid">
-                <div className="flex gap-4 mx-auto">
-                    <img src="/social-icons/twitter.svg" />
+            <div className="w-max mx-auto">
+                <div className="flex gap-8 items-center justify-center">
+                    <a href="https://twitter.com/that_yisus" target="_blank"><img src="/social-icons/twitter.svg" className="w-8 h-8" /></a>
 
-                    <img src="/social-icons/discord.svg" />
+                    <a href="https://discord.com/invite/qjYNHpU29P" target="_blank"><img src="/social-icons/discord.svg" className="w-8 h-8" /></a>
 
-                    <img src="/social-icons/opensea.svg" />
+                    <a href="" target="_blank"><img src="/social-icons/opensea.svg" className="w-8 h-8" /></a>
                 </div>
 
-                <img className="place-self-center"src="/images/white-rounded-logo.png" width="200px" />
+                <img src="/images/white-rounded-logo.png" width="200px" />
             </div>
         </footer>
     );
