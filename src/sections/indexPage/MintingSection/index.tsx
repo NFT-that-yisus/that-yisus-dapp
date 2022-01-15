@@ -7,29 +7,12 @@ import { connection } from "../../../redux/actions/blockchainActions";
 import { fetchData } from "../../../redux/actions/dataActions";
 
 interface IMintingSectionProps {
-    CONFIG: {
-        CONTRACT_ADDRESS: "",
-        SCAN_LINK: "",
-        NETWORK: {
-          NAME: "",
-          SYMBOL: "",
-          ID: 0
-        },
-        NFT_NAME: "",
-        SYMBOL: "",
-        MAX_SUPPLY: 33,
-        WEI_COST: 50000000000000000,
-        DISPLAY_COST: 3.3,
-        GAS_LIMIT: 285000,
-        MARKETPLACE: "",
-        MARKETPLACE_LINK: ""
-    },
     blockchain: {
-        loading: false,
+        loading: boolean,
         account: null,
         smartContract: null,
         web3: null,
-        errorMsg: ""
+        errorMsg: string
     },
     data: {
         loading: false,
@@ -43,19 +26,71 @@ interface IMintingSectionProps {
 }
 
 interface IMintingSectionState {
+    CONFIG: {
+        CONTRACT_ADDRESS: string,
+        SCAN_LINK: string,
+        NETWORK: {
+            NAME: string,
+            SYMBOL: string,
+            ID: number
+        },
+        NFT_NAME: string,
+        SYMBOL: string,
+        MAX_SUPPLY: number,
+        WEI_COST: number,
+        DISPLAY_COST: number,
+        GAS_LIMIT: number,
+        MARKETPLACE: string,
+        MARKETPLACE_LINK: string
+    },
+    mintAmount: number,
+    isMinting: boolean,
+
+    feedback: string
 }
 
 class MintingSection extends PureComponent<IMintingSectionProps, IMintingSectionState> {
     state = {
+        CONFIG: {
+            CONTRACT_ADDRESS: "",
+            SCAN_LINK: "",
+            NETWORK: {
+                NAME: "",
+                SYMBOL: "",
+                ID: 0
+            },
+            NFT_NAME: "",
+            SYMBOL: "",
+            MAX_SUPPLY: 33,
+            WEI_COST: 50000000000000000,
+            DISPLAY_COST: 3.3,
+            GAS_LIMIT: 285000,
+            MARKETPLACE: "",
+            MARKETPLACE_LINK: ""
+        },
         mintAmount: 1,
         isMinting: false,
 
         feedback: ""
     }
 
+    getData = () => {
+        const { blockchain, fetchData } = this.props;
+
+        if (blockchain.account !== "" && blockchain.smartContract !== null) {
+            fetchData(/*blockchain.account*/);
+        }
+    };
+
+    setMintAmount = (mintAmount:number) => this.setState({ mintAmount });
+
+    setIsMinting = (isMinting:boolean) => this.setState({ isMinting });
+
+    setFeedback = (feedback:string) => this.setState({ feedback });
+
     mintNFT = () => {
-        /*const { CONFIG, blockchain } = this.props;
-        const { mintAmount } = this.state;
+        const { CONFIG, mintAmount } = this.state;
+        const { blockchain } = this.props;
 
         let cost = CONFIG.WEI_COST;
         let gasLimit = CONFIG.GAS_LIMIT;
@@ -65,7 +100,7 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
         console.log("Cost: ", totalCostWei);
         console.log("Gas limit: ", totalGasLimit);
 
-        this.setFeedback(`Minting your ${CONFIG.NFT_NAME}...`);
+        this.setFeedback(`Minteando ${mintAmount} ${CONFIG.NFT_NAME}`);
         this.setIsMinting(true);
 
         blockchain.smartContract.methods
@@ -79,30 +114,16 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
         })
         .once("error", (err) => {
             console.log(err);
-            this.setFeedback("Sorry, something went wrong please try again later.");
+            this.setFeedback("Ocurrió un error. Ve a console.log para saber más.");
             this.setIsMinting(false);
         })
         .then((receipt) => {
             console.log(receipt);
-            this.setFeedback(`WOW, the ${CONFIG.NFT_NAME} is yours! go visit Opensea.io to view it.`);
+            this.setFeedback(`Acabas de mintear ${mintAmount} ${CONFIG.NFT_NAME} felicidades! Ve a Opensea para verlo.`);
             this.setIsMinting(false);
-            fetchData(/*blockchain.account--------------);
-        });*/
-    };
-
-    getData = () => {
-        const { blockchain, fetchData } = this.props;
-
-        if (blockchain.account !== "" && blockchain.smartContract !== null) {
             fetchData(/*blockchain.account*/);
-        }
+        });
     };
-
-    setMintAmount = (mintAmount:number) => this.setState({ mintAmount });
-
-    setIsMinting = (value:boolean) => this.setState({ isMinting: value });
-
-    setFeedback = (feedback:string) => this.setState({ feedback });
 
     handleMintingButton = () => {
         const { blockchain, connection } = this.props;
@@ -117,18 +138,31 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
         }
     }
 
+    getCONFIG = async () => {
+        const configResponse = await fetch("/config/config.json", {
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+            }
+        });
+        const CONFIG = await configResponse.json();
+
+        this.setState({ CONFIG });
+    }
+
+    componentDidMount() {
+        this.getData();
+        this.getCONFIG();
+    }
+
     render () {
-        const { mintAmount, isMinting, feedback } = this.state;
-        const { CONFIG, blockchain, data } = this.props;
+        const { CONFIG, mintAmount, isMinting, feedback } = this.state;
+        const { blockchain, data } = this.props;
 
         const isNotConnected = blockchain.account === "" || blockchain.smartContract === null;
 
         return (
             <div className="py-32 px-4">
-                {feedback && <p>{feedback}</p>}
-
-                {blockchain.errorMsg && <p>{blockchain.errorMsg}</p>}
-    
                 <div className="pb-8 md:w-1/2 md:mx-auto md:p-8 text-center divide-y divide-gray-600">
                     <h2 className="bg-black text-red-400 font-heading text-4xl">
                         00h 00min 00seg restantes!
@@ -152,7 +186,13 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
                     </div>
     
                     <div className="pt-8">
-                        <MintingButton isNotConnected={isNotConnected} CONFIG={CONFIG} 
+                        { isNotConnected && <p className="pb-4">Conéctate a {CONFIG.NETWORK.NAME} network</p> }
+
+                        {feedback && <p className="pb-4">{feedback}</p>}
+
+                        {blockchain.errorMsg && <p className="pb-4">{blockchain.errorMsg}</p>}
+
+                        <MintingButton isNotConnected={isNotConnected} 
                         handleMintingButton={this.handleMintingButton} isMinting={isMinting} />
                     </div>
                 </div>
@@ -172,65 +212,14 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
     }
 }
 
-export async function getStaticProps() {
-    const configResponse = await fetch("/config/config.json", {
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-        }
-    });
-    const config = await configResponse.json();
-
-    return {
-        props: {
-            CONFIG: config
-        }
-    }
-}
-
 const mapStateToProps = state => ({
     blockchain: state.blockchain,
-    data: state.data,
-
-    // TESTING ONLY
-    CONFIG: {
-        "CONTRACT_ADDRESS": "0x38763358f01db1B064dB61C56c05b66047380d84",
-        "SCAN_LINK": "https://mumbai.polygonscan.com/address/0x38763358f01db1B064dB61C56c05b66047380d84",
-        "NETWORK": {
-          "NAME": "Mumbai Polygon Testnet",
-          "SYMBOL": "Matic",
-          "ID": 80001
-        },
-        "NFT_NAME": "That Yisus Exclusive Limited Collection",
-        "SYMBOL": "TYELC",
-        "MAX_SUPPLY": 33,
-        "WEI_COST": 50000000000000000,
-        "DISPLAY_COST": 3.3,
-        "GAS_LIMIT": 285000,
-        "MARKETPLACE": "Opeansea",
-        "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/that-yisus-exclusive-limited-collection"
-      }      
+    data: state.data    
 });
 
 const mapDispatchToProps = {
-    connection: connection,
-    fetchData: fetchData
+    connection,
+    fetchData
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MintingSection);
-
-
-/*;
-
-const App = () => {
-
-    useEffect(() => {
-        getConfig();
-    }, []);
-
-    useEffect(() => {
-        getData();
-    }, [blockchain.account]);
-
-}
-*/
