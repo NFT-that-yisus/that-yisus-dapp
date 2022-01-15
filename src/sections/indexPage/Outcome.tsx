@@ -5,7 +5,7 @@ const Outcome = () => {
         <section className="my-32">
             <h1 className="text-6xl md:text-8xl font-heading text-center mb-8">Outcome</h1>
             
-            <div className="mx-4 p-8 md:w-1/2 mx-auto md:p-16 bg-gradient-to-r from-gray-600 to-gray-700 rounded-lg text-white text-center">
+            <div className="mx-4 p-8 md:w-1/2 md:mx-auto md:p-16 bg-gradient-to-r from-gray-600 to-gray-700 rounded-lg text-white text-center">
                 <img src="/social-icons/open-source.svg" width="60px" className="mx-auto" />
                 <h2 className="text-xl md:text-2xl mb-4">Open-source</h2>
 
