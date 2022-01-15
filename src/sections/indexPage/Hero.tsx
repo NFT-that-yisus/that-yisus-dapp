@@ -1,6 +1,7 @@
 import React from "react";
 
 const HeroBackgroundStyle = {
+    minHeight: "100vh",
     background: "url(/images/Hero-background.jpg)", 
     backgroundSize: "cover",
     backgroundPosition: "center"
@@ -8,8 +9,8 @@ const HeroBackgroundStyle = {
 
 const Hero = () => {
     return (
-        <section className="p-8 bg-purple-400" style={HeroBackgroundStyle}>
-            <img src="/images/yellow-font-logo.png" className="mx-auto" />
+        <section className="bg-purple-400 flex items-center justify-center" style={HeroBackgroundStyle}>
+            <img src="/images/yellow-font-logo.png" />
         </section>
     );
 }
