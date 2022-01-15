@@ -1,12 +1,15 @@
 import React, { PureComponent } from "react";
 
-import MintingButton from "./MintingButton"
+import MintingButton from "./MintingButton";
 
 import { connect } from "react-redux";
 import { connection } from "../../../redux/actions/blockchainActions";
 import { fetchData } from "../../../redux/actions/dataActions";
 
+import { ICONFIG, IMapStateToProps } from "../../../types";
+
 interface IMintingSectionProps {
+    CONFIG: ICONFIG,
     blockchain: {
         loading: boolean,
         account: null,
@@ -26,23 +29,6 @@ interface IMintingSectionProps {
 }
 
 interface IMintingSectionState {
-    CONFIG: {
-        CONTRACT_ADDRESS: string,
-        SCAN_LINK: string,
-        NETWORK: {
-            NAME: string,
-            SYMBOL: string,
-            ID: number
-        },
-        NFT_NAME: string,
-        SYMBOL: string,
-        MAX_SUPPLY: number,
-        WEI_COST: number,
-        DISPLAY_COST: number,
-        GAS_LIMIT: number,
-        MARKETPLACE: string,
-        MARKETPLACE_LINK: string
-    },
     mintAmount: number,
     isMinting: boolean,
 
@@ -51,23 +37,6 @@ interface IMintingSectionState {
 
 class MintingSection extends PureComponent<IMintingSectionProps, IMintingSectionState> {
     state = {
-        CONFIG: {
-            CONTRACT_ADDRESS: "",
-            SCAN_LINK: "",
-            NETWORK: {
-                NAME: "",
-                SYMBOL: "",
-                ID: 0
-            },
-            NFT_NAME: "",
-            SYMBOL: "",
-            MAX_SUPPLY: 33,
-            WEI_COST: 50000000000000000,
-            DISPLAY_COST: 3.3,
-            GAS_LIMIT: 285000,
-            MARKETPLACE: "",
-            MARKETPLACE_LINK: ""
-        },
         mintAmount: 1,
         isMinting: false,
 
@@ -89,8 +58,8 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
     setFeedback = (feedback:string) => this.setState({ feedback });
 
     mintNFT = () => {
-        const { CONFIG, mintAmount } = this.state;
-        const { blockchain } = this.props;
+        const { mintAmount } = this.state;
+        const { blockchain, CONFIG } = this.props;
 
         let cost = CONFIG.WEI_COST;
         let gasLimit = CONFIG.GAS_LIMIT;
@@ -138,28 +107,15 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
         }
     }
 
-    getCONFIG = async () => {
-        const configResponse = await fetch("/config/config.json", {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            }
-        });
-        const CONFIG = await configResponse.json();
-
-        this.setState({ CONFIG });
-    }
-
     componentDidMount() {
         this.getData();
-        this.getCONFIG();
     }
 
     render () {
-        const { CONFIG, mintAmount, isMinting, feedback } = this.state;
-        const { blockchain, data } = this.props;
+        const { mintAmount, isMinting, feedback } = this.state;
+        const { blockchain, data, CONFIG } = this.props;
 
-        const isNotConnected = blockchain.account === "" || blockchain.smartContract === null;
+        const isNotConnected:boolean = blockchain.account === "" || blockchain.smartContract === null;
 
         return (
             <div className="py-32 px-4">
@@ -212,9 +168,10 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
     }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IMapStateToProps) => ({
     blockchain: state.blockchain,
-    data: state.data    
+    data: state.data,
+    CONFIG: state.CONFIG    
 });
 
 const mapDispatchToProps = {

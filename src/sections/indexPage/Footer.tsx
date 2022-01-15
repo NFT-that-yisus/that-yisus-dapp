@@ -1,10 +1,18 @@
 import React from "react";
 
-const Footer = () => {
+import { connect } from "react-redux";
+
+import { ICONFIG, IMapStateToProps } from "../../types";
+
+interface IFooterProps {
+    CONFIG: ICONFIG
+}
+
+const Footer = ({ CONFIG }: IFooterProps) => {
     return (
         <footer className="bg-gradient-to-b from-blue-400 to-blue-200 p-8 text-center">
             <div className="p-4 mb-8 border-b border-black">
-                <p>DIRECCIÓN DEL SMART CONTRACT VERIFICADO: <a href="">____________</a></p>
+                <p>DIRECCIÓN DEL SMART CONTRACT VERIFICADO: <a href={CONFIG.SCAN_LINK} target="_blank" className="underline">{CONFIG.CONTRACT_ADDRESS}</a></p>
             </div>
 
             <div className="w-max mx-auto">
@@ -13,7 +21,7 @@ const Footer = () => {
 
                     <a href="https://discord.com/invite/qjYNHpU29P" target="_blank"><img src="/social-icons/discord.svg" className="w-8 h-8" /></a>
 
-                    <a href="" target="_blank"><img src="/social-icons/opensea.svg" className="w-8 h-8" /></a>
+                    <a href={CONFIG.MARKETPLACE_LINK} target="_blank"><img src="/social-icons/opensea.svg" className="w-8 h-8" /></a>
                 </div>
 
                 <img src="/images/white-rounded-logo.png" width="200px" />
@@ -22,4 +30,6 @@ const Footer = () => {
     );
 }
 
-export default Footer;
+const mapStateToProps = (state: IMapStateToProps) => ({ CONFIG: state.CONFIG })
+
+export default connect(mapStateToProps)(Footer);
