@@ -129,10 +129,10 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
 
                 {blockchain.errorMsg && <p>{blockchain.errorMsg}</p>}
     
-                <div className="w-1/2 mx-auto p-8 text-center divide-y divide-gray-600">
-                    <h3 className="bg-black text-red-400 font-heading text-2xl">
-                        00h 00min 00seg restantes!.
-                    </h3>
+                <div className="pb-8 md:w-1/2 md:mx-auto md:p-8 text-center divide-y divide-gray-600">
+                    <h2 className="bg-black text-red-400 font-heading text-4xl">
+                        00h 00min 00seg restantes!
+                    </h2>
 
                     <h3 className="py-8 text-4xl">{data.totalSupply} / {CONFIG.MAX_SUPPLY}</h3>
     
@@ -146,7 +146,7 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
                         </div>
     
                         <div className="pt-4">
-                            <p>{mintAmount} {CONFIG.SYMBOL} cuesta/n {CONFIG.DISPLAY_COST} {CONFIG.NETWORK.SYMBOL} (00 ETH)</p>
+                            <p>{mintAmount} {CONFIG.SYMBOL} cuesta/n {CONFIG.WEI_COST * mintAmount} {CONFIG.NETWORK.SYMBOL} (00 ETH)</p>
                             <p>Excluyendo precio de gas.</p>
                         </div>
                     </div>
@@ -157,13 +157,13 @@ class MintingSection extends PureComponent<IMintingSectionProps, IMintingSection
                     </div>
                 </div>
     
-                <div className="text-center">
+                <div className="text-justify md:text-center">
                     <p>
                         Asegurate de estar conectado en la red índicada ({CONFIG.NETWORK.NAME}).
                         Una vez realizada la compra, no hay vuelta atrás.
                     </p>
                     <p>
-                        Hemos puesto el limite de gas en {CONFIG.GAS_LIMIT} para un correcto minteo de tus NFTs.
+                        Hemos puesto el límite de gas en {CONFIG.GAS_LIMIT} para un correcto minteo de tus NFTs. (Solo se utiliza el gas óptimo)
                         Recomendamos encarecidamente mantener este valor.
                     </p>
                 </div>
