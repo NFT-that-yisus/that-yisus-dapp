@@ -3,7 +3,8 @@ import React from "react";
 const RevelationEventBackgroundStyle = {
     background: "url(/images/RevelationEvent-background.jpg)",
     backgroundPosition: "center",
-    backgroundAttachment: "fixed"
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover"
 }
 
 const RevelationEvent = () => {
