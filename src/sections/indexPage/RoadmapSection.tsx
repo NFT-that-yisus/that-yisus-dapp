@@ -2,8 +2,8 @@ import React from "react";
 
 const RoadmapSection = () => {
     return (
-        <div className="mx-auto py-32 px-4 w-3/4 text-justify">
-            <h1 className="font-heading text-6xl mb-4 text-center">Roadmap 2022</h1>
+        <div className="mx-auto py-32 px-4 md:w-3/4 text-justify">
+            <h1 className="font-heading text-6xl md:text-8xl mb-4 text-center">Roadmap 2022</h1>
             <p>- 18 Enero. Pre-sale (prioridad/whitelist) minteo (direcciones comunidad discord)</p>
             <p>- 25 Enero. Minteo libre</p>
             <p>- 01 Febrero. La llegada del Salvador (revelación NFTs) en evento metaverso Spatial.io </p>
