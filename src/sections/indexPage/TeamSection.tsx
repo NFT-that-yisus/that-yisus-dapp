@@ -4,19 +4,19 @@ const TeamSection = () => {
     return (
         <div className="px-4">
             <div className="text-center">
-                <h1 className="font-heading text-6xl">El Equipo</h1>
-                <h3 className="text-2xl">
+                <h1 className="font-heading text-6xl md:text-8xl">El Equipo</h1>
+                <h3 className="text-xl">
                     Detrás de todo gran proyecto hay un gran equipo. <br />
                     Yo soy mente, Dios es mente.    
                 </h3>
             </div>
 
             <div className="py-12 text-center">
-                <h2 className="mb-8 font-heading text-4xl text-yellow-400">Staff</h2>
+                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-yellow-400">Staff</h2>
 
-                <div className="flex gap-8 justify-center">
+                <div className="flex gap-8 items-center justify-center">
                     <div>
-                        <div className="mb-4 w-48 h-48 bg-gray-400 rounded-full" />
+                        <div className="mx-auto mb-4 w-36 h-36 md:w-48 md:h-48 bg-gray-400 rounded-full" />
                         <b>Black Jack</b>
                         <p>// Description not found.</p>
 
@@ -31,7 +31,7 @@ const TeamSection = () => {
                     </div>
 
                     <div>
-                        <div className="mb-4 w-48 h-48 bg-gray-400 rounded-full" />
+                        <div className="mx-auto mb-4 w-36 h-36 md:w-48 md:h-48 bg-gray-400 rounded-full" />
                         <b>Kevin ¿¿Apellido??</b>
                         <p>Descripción.</p>
 
@@ -48,7 +48,7 @@ const TeamSection = () => {
             </div>
 
             <div className="py-12 text-center">
-                <h2 className="mb-8 font-heading text-4xl text-blue-400">Artístas</h2>
+                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-blue-400">Artístas</h2>
 
                 
             </div>
