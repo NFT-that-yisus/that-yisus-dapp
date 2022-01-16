@@ -1,4 +1,6 @@
-const initialState = {
+import { ICONFIG } from "../../types";
+
+const initialState: ICONFIG = {
     "CONTRACT_ADDRESS": "0x38763358f01db1b064db61c56c05b66047380d84",
     "SCAN_LINK": "https://mumbai.polygonscan.com/address/0x38763358f01db1B064dB61C56c05b66047380d84",
     "NETWORK": {
@@ -15,8 +17,12 @@ const initialState = {
     "MARKETPLACE": "Opeansea",
     "MARKETPLACE_LINK": "https://testnets.opensea.io/collection/that-yisus-exclusive-limited-collection"
 }
+
+interface ICONFIGReducerAction {
+    type: string
+}
   
-const CONFIGReducer = (state = initialState, action) => {
+const CONFIGReducer = (state = initialState, action: ICONFIGReducerAction) => {
     switch (action.type) {
         default:
             return {...state};

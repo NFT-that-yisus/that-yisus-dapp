@@ -4,12 +4,21 @@ export const CONNECTION_SUCCESS = "CONNECTION_SUCCESS";
 export const CONNECTION_FAILED = "CONNECTION_FAILED";
 export const UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
 
+import store from "../store";
+
 // constants
-import Web3EthContract from "web3-eth-contract";
+import Web3EthContract, { Contract } from "web3-eth-contract";
 import Web3 from "web3";
 
 // log
 import { fetchData } from "./dataActions";
+
+// Types
+interface IConnectionSuccess {
+    account: string,
+    smartContract: Contract,
+    web3: Web3
+}
 
 const connectionRequest = () => {
     return {
@@ -17,21 +26,21 @@ const connectionRequest = () => {
     };
 };
 
-const connectionSuccess = payload => {
+const connectionSuccess = (payload:IConnectionSuccess) => {
     return {
         type: CONNECTION_SUCCESS,
         payload
     };
 };
 
-const connectionFailed = payload => {
+const connectionFailed = (errorMsg:string) => {
     return {
         type: CONNECTION_FAILED,
-        payload
+        payload: { errorMsg }
     };
 };
 
-const updateAccountRequest = payload => {
+const updateAccountRequest = (payload:string) => {
     return {
         type: UPDATE_ACCOUNT,
         payload
@@ -50,13 +59,7 @@ export const connection = () => {
         });
         const abi = await abiResponse.json();
 
-        const configResponse = await fetch("/config/config.json", {
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            }
-        });
-        const CONFIG = await configResponse.json();
+        const CONFIG = store.getState().CONFIG;
 
         const { ethereum } = window;
         const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
