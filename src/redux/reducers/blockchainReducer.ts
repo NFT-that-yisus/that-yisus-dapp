@@ -2,18 +2,12 @@ import { CONNECTION_REQUEST, CONNECTION_SUCCESS, CONNECTION_FAILED,
 UPDATE_ACCOUNT } from "../actions/blockchainActions";
 
 // Types
+import { IBlockchainState } from "../../types";
+
 import { Contract } from "web3-eth-contract";
 import Web3 from "web3";
 
-interface IInitialState {
-    loading: boolean,
-    account: string | null,
-    smartContract: Contract | null,
-    web3: Web3 | null,
-    errorMsg: string
-}
-
-const initialState: IInitialState = {
+const initialState: IBlockchainState = {
     loading: false,
     account: null,
     smartContract: null,
@@ -31,12 +25,7 @@ interface IBlockchainReducerAction {
     }
 }
 
-
-
-
-
-
-const blockchainReducer = (state = initialState, action: IBlockchainReducerAction) => {
+const blockchainReducer = (state = initialState, action:IBlockchainReducerAction) => {
     switch (action.type) {
         case CONNECTION_REQUEST:
             return {

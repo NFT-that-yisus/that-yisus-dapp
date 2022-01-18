@@ -1,21 +1,28 @@
 import { CHECK_DATA_REQUEST, CHECK_DATA_SUCCESS, CHECK_DATA_FAILED } from "../actions/dataActions";
 
-const initialState = {
+import { IDataState } from "../../types";
+
+const initialState: IDataState = {
     loading: false,
     totalSupply: 0,
     cost: 0,
-    error: false,
-    errorMsg: "",
+    errorMsg: ""
 };
+
+interface IDataReducerAction {
+    type: string,
+    payload: {
+        totalSupply: number,
+        errorMsg: string
+    }
+}
   
-const dataReducer = (state = initialState, action) => {
+const dataReducer = (state = initialState, action: IDataReducerAction) => {
     switch (action.type) {
         case CHECK_DATA_REQUEST:
             return {
                 ...state,
-                loading: true,
-                error: false,
-                errorMsg: "",
+                loading: true
             };
 
         case CHECK_DATA_SUCCESS:
@@ -23,17 +30,14 @@ const dataReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 totalSupply: action.payload.totalSupply,
-                // cost: action.payload.cost,
-                error: false,
-                errorMsg: "",
+                // cost: action.payload.cost
             };
 
         case CHECK_DATA_FAILED:
             return {
                 ...initialState,
                 loading: false,
-                error: true,
-                errorMsg: action.payload,
+                errorMsg: action.payload.errorMsg,
             };
 
         default:

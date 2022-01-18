@@ -6,29 +6,37 @@ export const CHECK_DATA_FAILED = "CHECK_DATA_FAILED";
 // log
 import store from "../store";
 
+// Types
+interface IFetchDataSuccess {
+    totalSupply: number
+}
+
 const fetchDataRequest = () => {
     return {
         type: CHECK_DATA_REQUEST
     };
 };
 
-const fetchDataSuccess = payload => {
+const fetchDataSuccess = (payload:IFetchDataSuccess) => {
     return {
         type: CHECK_DATA_SUCCESS,
         payload
     };
 };
 
-const fetchDataFailed = payload => {
+const fetchDataFailed = (errorMsg:string) => {
     return {
         type: CHECK_DATA_FAILED,
-        payload
+        payload: { errorMsg }
     };
 };
 
 export const fetchData = () => {
-    return async dispatch => {
+    return async (dispatch:any) => { // any are you okay?
         dispatch(fetchDataRequest());
+
+        const nooose = store.getState().blockchain.smartContract.methods;
+                console.log(await nooose.name().call())
 
         try {
             let totalSupply = await store
@@ -40,10 +48,13 @@ export const fetchData = () => {
                 //   .blockchain.smartContract.methods.cost()
                 //   .call();
 
+                // console.log(store.getState().smartContract.methods.cost());
+                
+
             dispatch(
                 fetchDataSuccess({
                     totalSupply,
-                    // cost,
+                    // cost
                 })
             );
         } catch (err) {

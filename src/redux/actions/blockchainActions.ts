@@ -40,15 +40,17 @@ const connectionFailed = (errorMsg:string) => {
     };
 };
 
-const updateAccountRequest = (payload:string) => {
+const updateAccountRequest = (account:string) => {
     return {
         type: UPDATE_ACCOUNT,
-        payload
+        payload: {
+            account
+        }
     };
 };
 
 export const connection = () => {
-    return async dispatch => {
+    return async (dispatch:any) => { // any??? Nein, that´s low bro
         dispatch(connectionRequest());
 
         const abiResponse = await fetch("/config/abi.json", {
@@ -61,7 +63,7 @@ export const connection = () => {
 
         const CONFIG = store.getState().CONFIG;
 
-        const { ethereum } = window;
+        const { ethereum } = window as any; // any????????
         const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
 
         if (metamaskIsInstalled) {
@@ -91,7 +93,7 @@ export const connection = () => {
                         })
                     );
                     // Add listeners start
-                    ethereum.on("accountsChanged", (accounts) => {
+                    ethereum.on("accountsChanged", (accounts:[""]) => {
                         dispatch(updateAccount(accounts[0]));
                     });
                     ethereum.on("chainChanged", () => {
@@ -105,14 +107,14 @@ export const connection = () => {
                 dispatch(connectionFailed(`Ocurrió un error: ${err}`));
             }
         } else {
-            dispatch(connectionFailed("Installa Metamask."));
+            dispatch(connectionFailed("Instala Metamask."));
         }
     };
 };
 
-export const updateAccount = account => {
-    return async dispatch => {
-        dispatch(updateAccountRequest({ account }));
-        dispatch(fetchData(account));
+export const updateAccount = (account:string) => {
+    return async (dispatch:any) => { // More any here
+        dispatch(updateAccountRequest(account));
+        dispatch(fetchData(/*account*/));
     };
 };
