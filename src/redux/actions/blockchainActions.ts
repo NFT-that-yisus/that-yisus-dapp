@@ -7,7 +7,7 @@ export const UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
 import store from "../store";
 
 // constants
-import Web3EthContract, { Contract } from "web3-eth-contract";
+import { Contract } from "web3-eth-contract";
 import Web3 from "web3";
 
 // log
@@ -67,8 +67,8 @@ export const connection = () => {
         const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
 
         if (metamaskIsInstalled) {
-            Web3EthContract.setProvider(ethereum);
             let web3 = new Web3(ethereum);
+            //Contract.setProvider(ethereum);
 
             try {
                 const accounts = await ethereum.request({
@@ -80,7 +80,7 @@ export const connection = () => {
                 });
 
                 if (networkId == CONFIG.NETWORK.ID) {
-                    const SmartContractObj = new Web3EthContract(
+                    const SmartContractObj = new Contract(
                         abi,
                         CONFIG.CONTRACT_ADDRESS
                     );
@@ -89,7 +89,7 @@ export const connection = () => {
                         connectionSuccess({
                             account: accounts[0],
                             smartContract: SmartContractObj,
-                            web3: web3
+                            web3
                         })
                     );
                     // Add listeners start

@@ -1,17 +1,11 @@
 import React from "react";
 
-import { ICONFIG, IBlockchainState } from "../../../types";
+import { ICONFIG, IDataState, IBlockchainState } from "../../../types";
 
 import MintingButton from "./MintingButton";
 
 interface IMintingSectionProps {
-    data: {
-        loading: false,
-        totalSupply: 0,
-        cost: 0,
-        error: false,
-        errorMsg: "",
-    },
+    data: IDataState,
     CONFIG: ICONFIG,
     setMintAmount: (mintAmount:number) => void, 
     mintAmount: number, 
