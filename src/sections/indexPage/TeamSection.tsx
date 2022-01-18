@@ -12,10 +12,14 @@ const TeamSection = () => {
             </div>
 
             <div className="py-12 text-center">
-                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-yellow-400">Staff</h2>
+                <div className="mb-8 font-heading text-4xl md:text-6xl">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-400">
+                        Staff
+                    </span>
+                </div>
 
-                <div className="flex gap-8 items-center justify-center">
-                    <div>
+                <div className="flex gap-8 justify-center">
+                    <div className="w-1/4">
                         <div className="mx-auto mb-4 w-36 h-36 md:w-48 md:h-48 bg-gray-400 rounded-full" />
                         <b>Black Jack</b>
                         <p>// Description not found.</p>
@@ -30,17 +34,14 @@ const TeamSection = () => {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="w-1/4">
                         <div className="mx-auto mb-4 w-36 h-36 md:w-48 md:h-48 bg-gray-400 rounded-full" />
-                        <b>Kevin ¿¿Apellido??</b>
-                        <p>Descripción.</p>
+                        <b>Kevin Alzablock</b>
+                        <p>Joven emprendedor.</p>
 
                         <div className="mt-8 flex gap-8 justify-center items-center">
-                            <a href="" target="_blank">
+                            <a href="https://tunel.app/u/Kev_Alzablock" target="_blank">
                                 <img src="/social-icons/tunel.svg" className="w-6 h-6" />
-                            </a>
-                            <a href="" target="_blank">
-                                <img src="/social-icons/instagram.svg" className="w-6 h-6" />
                             </a>
                         </div>
                     </div>
@@ -48,7 +49,30 @@ const TeamSection = () => {
             </div>
 
             <div className="py-12 text-center">
-                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-blue-400">Artístas</h2>
+                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-blue-800">Helpers</h2>
+
+                
+            </div>
+
+            <div className="py-12 text-center">
+                <div className="mb-8 font-heading text-4xl md:text-6xl">
+                    <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+                        Artistas
+                    </span>
+                </div>
+
+
+                
+            </div>
+
+            <div className="py-12 text-center">
+                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-red-600">Social Creators</h2>
+
+                
+            </div>
+
+            <div className="py-12 text-center">
+                <h2 className="mb-8 font-heading text-4xl md:text-6xl text-purple-900">Moderadores del Club</h2>
 
                 
             </div>
