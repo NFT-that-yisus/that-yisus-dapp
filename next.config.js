@@ -2,8 +2,8 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/about',
-        destination: '/',
+        source: '/mint',
+        destination: 'https://mint.thatyisustesting.ml/',
         permanent: true,
       },
     ]
