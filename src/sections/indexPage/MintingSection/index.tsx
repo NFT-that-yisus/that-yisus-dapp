@@ -12,8 +12,8 @@ interface IMintingSectionHandlerProps {
     CONFIG: ICONFIG,
     blockchain: IBlockchainState,
     data: IDataState,
-    connection: () => {},
-    fetchData: () => {}
+    connection: () => void,
+    fetchData: () => void
 }
 
 class MintingSectionHandler extends PureComponent<IMintingSectionHandlerProps> {

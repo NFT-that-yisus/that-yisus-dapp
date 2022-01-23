@@ -1,7 +1,9 @@
+import IBlockchainState from "./IBlockchainState";
+import IDataState from "./IDataState";
 import ICONFIG from "./ICONFIG";
 
 export default interface IMapStateToProps {
-    blockchain: {},
-    data: {},
+    blockchain: IBlockchainState,
+    data: IDataState,
     CONFIG: ICONFIG
 }

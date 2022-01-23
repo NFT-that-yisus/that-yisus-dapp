@@ -35,8 +35,8 @@ export const fetchData = () => {
     return async (dispatch:any) => { // any are you okay?
         dispatch(fetchDataRequest());
 
-        const nooose = store.getState().blockchain.smartContract.methods;
-                console.log(await nooose.name().call())
+        /*const nooose = store.getState().blockchain.smartContract.methods;
+                console.log(await nooose.name().call())*/
 
         try {
             let totalSupply = await store
